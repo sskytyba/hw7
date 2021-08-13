@@ -1,0 +1,20 @@
+version: "3"
+services:
+
+  app:
+    container_name: app
+    environment:
+      - "SPRING_PROFILES_ACTIVE=stage"
+    expose:
+      - 8080
+    image: docker.io/library/hw7:0.0.1-SNAPSHOT
+  nginx:
+    image: fabiocicerchia/nginx-lua
+    container_name: nginx
+    links:
+      - app
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./data:/data/nginx/cache
+    ports:
+      - 80:80
